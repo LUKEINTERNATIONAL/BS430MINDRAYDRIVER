@@ -43,7 +43,7 @@ var transmission = [];
 function processResults(arr) {
         
     if (arr.length == 0) return;
-    var assays = ["MTB","Rif Resistance","COV-2"];
+    var assays = ["MTB","Rif Resistance","COV-2","EID","Viral Load"];
 	
     var data = arr.join("")
     data = data.replace(/\x02/g, "<STX>")
@@ -77,7 +77,9 @@ function processResults(arr) {
             var segments = line.split("|");
             for (var a = 0; a < assays.length; a++) {
 				var assy = segments[2].split("^")[3];
-  
+  				if (assays[a] == "EID"){
+				  assy = segments[2].split("^")[1];
+				}
 				if(assy == "Rif Resistance" || assy == "MTB"){
 						if (segments[2] && segments[8] == "F" && (segments[1] == "1" || segments[1] == "20")) {		
 							var rst = segments[3].split("^")[0].replace(/\d+/g, "");		
@@ -89,7 +91,7 @@ function processResults(arr) {
 							urls.push(uri);
 							
 						}
-				}else if(assy == "COV-2")
+				}else if(assy == "SARS CO2V 19" || assy == "SARS COV 19" || assy == "SARS C2OV 19" || assy == "SARS COV 219" || assy == "SA2RS COV 19" || assy == "SARS 2COV 19")
 				{
 					if (segments[2] && segments[8] == "F" && (segments[1] == "1")) {		
 						var rst = segments[3].split("^")[0].replace(/\d+/g, "");		
@@ -101,7 +103,42 @@ function processResults(arr) {
 						urls.push(uri);
 						
 					}
-				}			
+				}else if (assy == "Viral L2oad" || assy == "Viral2 Load" || assy == "Viral Load" || assy == "V2iral Load" || assy =="Viral Load2"){
+
+					if (segments[2] && segments[8] == "F" && (segments[1] == "1") || segments[1] == "21") {
+                                                var rst = segments[3].split("^")[0].replace(/\d+/g, "");
+						console.log(rst.length);
+						
+						if(rst.length == 0){
+						  rst = segments[3].split("^")[1];
+						  rst = rst +" "+ segments[4];
+						}else
+						{
+						  var units = segments[6] +" "+ segments[5].split("to")[0] +" "+ segments[4]; 
+						  rst = rst +" "+ units;
+                                                }
+						var link = settings.lisPath;
+						link = link.replace(/\#\{SPECIMEN_ID\}/, sampleId);
+                                                var uri = link.replace(/\#\{MEASURE_ID\}/, mapping["COV-2"]);
+                                                uri = uri.replace(/\#\{RESULT\}/, rst);
+                                                urls.push(uri);
+
+                                        }
+
+				}else if (assy == "EID" || assy == "EID-Test"){
+
+					  if (segments[2] && segments[8] == "F" && (segments[1] == "1")) {
+                                                var rst = segments[3].split("^")[0].replace(/\d+/g, "");
+
+                                                var link = settings.lisPath;
+                                                link = link.replace(/\#\{SPECIMEN_ID\}/, sampleId);
+                                                var uri = link.replace(/\#\{MEASURE_ID\}/, mapping["EID"]);
+                                                uri = uri.replace(/\#\{RESULT\}/, rst);
+                                                urls.push(uri);
+
+                                        }
+
+				}
 			}
 			
         }
@@ -115,7 +152,7 @@ function sendData(urls){
 	var url = encodeURI(urls[0].replace("+", "---"));
 	url = url.replace("---", "%2B");
 	urls.shift();
-	//console.log(url);
+	console.log(url);
 	(new client(options_auth)).get(url, function (data) {
 		if(urls.length > 0){
 			sendData(urls);
