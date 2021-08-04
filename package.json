@@ -1,7 +1,7 @@
 {
-  "name": "GENEXPERT ANALYSER",
+  "name": "GENEXPERT_ANALYSER",
   "version": "1.0.0",
-  "description": "GENEXPERT ANALYSER",
+  "description": "GENEXPERT_ANALYSER",
   "main": "app.js",
   "dependencies": {
     "async": "^2.0.1",
@@ -15,7 +15,7 @@
     "md5": "^2.1.0",
     "mysql": "^2.18.1",
     "node-notifier": "^4.6.0",
-    "node-rest-client": "^2.0.1",
+    "node-rest-client": "^3.1.0",
     "node-uuid": "^1.4.7",
     "portfinder": "^0.4.0",
     "randomstring": "^1.1.5",

@@ -138,6 +138,19 @@ function processResults(arr) {
 
                                         }
 
+				}else if (assy == "OTHER HR HPV" || assy == "HPV 16" || assy == "HPV 18_45"){
+
+					  if (segments[2] && segments[8] == "F" && (segments[1] == "1") || segments[1] == "15" || segments[1] == "8") {
+                                                var rst = segments[3].split("^")[0].replace(/\d+/g, "");
+
+                                                var link = settings.lisPath;
+                                                link = link.replace(/\#\{SPECIMEN_ID\}/, sampleId);
+                                                var uri = link.replace(/\#\{MEASURE_ID\}/, mapping[assy]);
+                                                uri = uri.replace(/\#\{RESULT\}/, rst);
+                                                urls.push(uri);
+
+                                        }
+
 				}
 			}
 			
