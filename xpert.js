@@ -91,9 +91,9 @@ function processResults(arr) {
 							urls.push(uri);
 							
 						}
-				}else if(assy == "SARS CO2V 19" || assy == "SARS COV 19" || assy == "SARS C2OV 19" || assy == "SARS COV 219" || assy == "SA2RS COV 19" || assy == "SARS 2COV 19")
+				}else if(assy == "SARS COV2 19" || assy == "2SARS COV 19" || assy == "SARS COV 129" ||  assy == "SARS2 COV 19" || assy == "S2ARS COV 19" || assy == "SAR2S COV 19" || assy == "SARS CO2V 19" || assy == "SARS COV 19" || assy == "SARS C2OV 19" || assy == "SARS COV 219" || assy == "SA2RS COV 19" || assy == "SARS 2COV 19")
 				{
-					if (segments[2] && segments[8] == "F" && (segments[1] == "1")) {		
+					if (segments[2] && segments[8] == "F" && (segments[1] == "1" || segments[1] == "12")) {		
 						var rst = segments[3].split("^")[0].replace(/\d+/g, "");		
 						   
 						var link = settings.lisPath;
@@ -103,7 +103,7 @@ function processResults(arr) {
 						urls.push(uri);
 						
 					}
-				}else if (assy == "Viral L2oad" || assy == "Viral2 Load" || assy == "Viral Load" || assy == "V2iral Load" || assy =="Viral Load2"){
+				}else if (assy == "Viral Lo2ad" || assy == "Viral 2Load" || assy == "Vi2ral Load" || assy == "Vir2al Load" || assy == "2Viral Load" || assy == "Viral Loa2d" || assy == "Vira2l Load" || assy == "Viral L2oad" || assy == "Viral2 Load" || assy == "Viral Load" || assy == "V2iral Load" || assy =="Viral Load2"){
 
 					if (segments[2] && segments[8] == "F" && (segments[1] == "1") || segments[1] == "21") {
                                                 var rst = segments[3].split("^")[0].replace(/\d+/g, "");
@@ -125,7 +125,7 @@ function processResults(arr) {
 
                                         }
 
-				}else if (assy == "EID" || assy == "EID-Test"){
+				}else if (assy == "EI2D" || assy == "2EID" || assy == "E2ID" || assy == "EID2" || assy == "EID" || assy == "EID-Test"){
 
 					  if (segments[2] && segments[8] == "F" && (segments[1] == "1")) {
                                                 var rst = segments[3].split("^")[0].replace(/\d+/g, "");
